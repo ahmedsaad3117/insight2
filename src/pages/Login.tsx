@@ -1,6 +1,8 @@
-import Link from "next/link"
-import { Button, Card, Col, Container, Form, Row } from "react-bootstrap"
+import { Col, Container, Row } from "react-bootstrap"
 import Image from "../components/CustomImage"
+import LoginForm from "@/components/LoginForm"
+import OTP from "@/components/OTP"
+import { useState } from "react"
 
 export async function getStaticProps() {
   return {
@@ -14,68 +16,18 @@ export async function getStaticProps() {
   }
 }
 export default function Login() {
+  const [activeComponent, setActiveComponent] = useState('login');
+
   return (
     <Container>
       <Row className="align-items-center">
-        <Col lg={6} className="px-lg-4">
-          <Card>
-            <Card.Header className="px-lg-5 py-4">
-              <div className="card-heading text-primary fw-700 fs-15-45">sign in</div>
-            </Card.Header>
-            <Card.Body className="p-lg-5">
-              <h3 className="mb-4">Hi, welcome back! 👋👋</h3>
-              <p className="text-muted text-sm mb-5">
-                Welcome to Reachware, or a way to advance through which you can connect easily
-              </p>
-              <Form id="loginForm" action="/">
-                <div className="form-floating mb-3">
-                  <Form.Control
-                    id="email"
-                    type="email"
-                    placeholder="name@example.com"
-                  />
-                  <Form.Label htmlFor="email">Username or Email address</Form.Label>
-                </div>
-                <div className="form-floating mb-3">
-                  <Form.Control
-                    id="password"
-                    type="password"
-                    placeholder="Password"
-                  />
-                  <Form.Label htmlFor="password">Password</Form.Label>
-                </div>
-                <Row>
-                  <Col>
-                    <Form.Check
-                      id="agree"
-                      type="checkbox"
-                      className="mb-3"
-                      label="Remember me"
-                    />
-                  </Col>
-                  <Col style={{ maxWidth: 'max-content' }}>
-                    <Link href="/forget-password" className="text-primary">
-                      Forget Password
-                    </Link>
-                  </Col>
-                </Row>
-
-
-                <Button variant="primary" size="lg" type="submit">
-                  Submit
-                </Button>
-              </Form>
-            </Card.Body>
-            <Card.Footer className="px-lg-5 py-lg-4">
-              <div className="text-sm text-muted">
-                Don't have an account?{" "}
-                <Link href="/register">
-                  Register
-                </Link>
-                .
-              </div>
-            </Card.Footer>
-          </Card>
+        <Col lg={6} className="px-lg-4 swipeable-form-container" style={{ flex: 'auto', width: '100%' }}>
+          <div className={`form-container ${activeComponent === 'login' ? 'slide-in' : 'slide-out'}`}>
+            <LoginForm onSuccess={() => setActiveComponent('otp')} />
+          </div>
+          <div className={`form-container ${activeComponent === 'otp' ? 'slide-in' : 'slide-out'}`}>
+            <OTP onSuccess={() => setActiveComponent('login')} />
+          </div>
         </Col>
         <Col
           lg={6}
