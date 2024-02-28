@@ -1,5 +1,8 @@
 import Link from "next/link"
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap"
+import * as Yup from 'yup'
+import { Controller, useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
 import Image from "../components/CustomImage"
 
 export async function getStaticProps() {
@@ -14,6 +17,27 @@ export async function getStaticProps() {
   }
 }
 export default function Login() {
+
+  const schema = Yup.object().shape({
+    email: Yup.string().email('Invalid email').required('Email is required'),
+    password: Yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
+    remember_me: Yup.boolean()
+  });
+
+  const { control, handleSubmit, formState: { isValid, errors } } = useForm({
+    mode: 'all',
+    resolver: yupResolver(schema),
+    defaultValues: {
+      email: '',
+      password: '',
+      remember_me: false,
+    }
+  });
+
+  const onSubmit = (payload: any) => {
+    console.log(payload);
+  }
+  
   return (
     <Container>
       <Row className="align-items-center">
@@ -27,31 +51,66 @@ export default function Login() {
               <p className="text-muted text-sm mb-5">
                 Welcome to Reachware, or a way to advance through which you can connect easily
               </p>
-              <Form id="loginForm" action="/">
+              <Form id="loginForm" onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-floating mb-3">
-                  <Form.Control
-                    id="email"
-                    type="email"
-                    placeholder="name@example.com"
+                  <Controller
+                    name="email"
+                    control={control}
+                    render={({ field: { value, onChange, onBlur }, fieldState }) => (
+                      <>
+                      <Form.Control
+                        id="email"
+                        type="email"
+                        placeholder="name@example.com"
+                        value={value}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        className={`form-control ${fieldState.error ? "is-invalid" : ""}`}
+                      />
+                      <Form.Label htmlFor="email">Username or Email address</Form.Label>
+                      <div className="invalid-feedback">{ fieldState.error?.message }</div>
+                      </>
+                    )}
                   />
-                  <Form.Label htmlFor="email">Username or Email address</Form.Label>
                 </div>
                 <div className="form-floating mb-3">
-                  <Form.Control
-                    id="password"
-                    type="password"
-                    placeholder="Password"
+                <Controller
+                    name="password"
+                    control={control}
+                    render={({ field: { value, onChange, onBlur }, fieldState }) => (
+                      <>
+                      <Form.Control
+                        id="password"
+                        type="password"
+                        placeholder="Password"
+                        value={value}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        className={`form-control ${fieldState.error ? "is-invalid" : ""}`}
+                      />
+                      <Form.Label htmlFor="password">Password</Form.Label>
+                      <div className="invalid-feedback">{ fieldState.error?.message }</div>
+                      </>
+                    )}
                   />
-                  <Form.Label htmlFor="password">Password</Form.Label>
                 </div>
                 <Row>
                   <Col>
-                    <Form.Check
-                      id="agree"
-                      type="checkbox"
-                      className="mb-3"
-                      label="Remember me"
-                    />
+                  <Controller
+                    name="remember_me"
+                    control={control}
+                    render={({ field: { value, onChange, onBlur } }) => (
+                      <Form.Check
+                        id="agree"
+                        type="checkbox"
+                        className="mb-3"
+                        label="Remember me"
+                        value={value}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                      />
+                    )}
+                  />
                   </Col>
                   <Col style={{ maxWidth: 'max-content' }}>
                     <Link href="/forget-password" className="text-primary">
