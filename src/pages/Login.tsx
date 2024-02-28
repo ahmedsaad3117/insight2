@@ -1,9 +1,8 @@
-import Link from "next/link"
-import { Button, Card, Col, Container, Form, Row } from "react-bootstrap"
-import * as Yup from 'yup'
-import { Controller, useForm } from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup"
+import { Col, Container, Row } from "react-bootstrap"
 import Image from "../components/CustomImage"
+import LoginForm from "@/components/LoginForm"
+import OTP from "@/components/OTP"
+import { useState } from "react"
 
 export async function getStaticProps() {
   return {
@@ -17,124 +16,18 @@ export async function getStaticProps() {
   }
 }
 export default function Login() {
+  const [activeComponent, setActiveComponent] = useState('login');
 
-  const schema = Yup.object().shape({
-    email: Yup.string().email('Invalid email').required('Email is required'),
-    password: Yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
-    remember_me: Yup.boolean()
-  });
-
-  const { control, handleSubmit, formState: { isValid, errors } } = useForm({
-    mode: 'all',
-    resolver: yupResolver(schema),
-    defaultValues: {
-      email: '',
-      password: '',
-      remember_me: false,
-    }
-  });
-
-  const onSubmit = (payload: any) => {
-    console.log(payload);
-  }
-  
   return (
     <Container>
       <Row className="align-items-center">
-        <Col lg={6} className="px-lg-4">
-          <Card>
-            <Card.Header className="px-lg-5 py-4">
-              <div className="card-heading text-primary fw-700 fs-15-45">sign in</div>
-            </Card.Header>
-            <Card.Body className="p-lg-5">
-              <h3 className="mb-4">Hi, welcome back! 👋👋</h3>
-              <p className="text-muted text-sm mb-5">
-                Welcome to Reachware, or a way to advance through which you can connect easily
-              </p>
-              <Form id="loginForm" onSubmit={handleSubmit(onSubmit)}>
-                <div className="form-floating mb-3">
-                  <Controller
-                    name="email"
-                    control={control}
-                    render={({ field: { value, onChange, onBlur }, fieldState }) => (
-                      <>
-                      <Form.Control
-                        id="email"
-                        type="email"
-                        placeholder="name@example.com"
-                        value={value}
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        className={`form-control ${fieldState.error ? "is-invalid" : ""}`}
-                      />
-                      <Form.Label htmlFor="email">Username or Email address</Form.Label>
-                      <div className="invalid-feedback">{ fieldState.error?.message }</div>
-                      </>
-                    )}
-                  />
-                </div>
-                <div className="form-floating mb-3">
-                <Controller
-                    name="password"
-                    control={control}
-                    render={({ field: { value, onChange, onBlur }, fieldState }) => (
-                      <>
-                      <Form.Control
-                        id="password"
-                        type="password"
-                        placeholder="Password"
-                        value={value}
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        className={`form-control ${fieldState.error ? "is-invalid" : ""}`}
-                      />
-                      <Form.Label htmlFor="password">Password</Form.Label>
-                      <div className="invalid-feedback">{ fieldState.error?.message }</div>
-                      </>
-                    )}
-                  />
-                </div>
-                <Row>
-                  <Col>
-                  <Controller
-                    name="remember_me"
-                    control={control}
-                    render={({ field: { value, onChange, onBlur } }) => (
-                      <Form.Check
-                        id="agree"
-                        type="checkbox"
-                        className="mb-3"
-                        label="Remember me"
-                        value={value}
-                        onChange={onChange}
-                        onBlur={onBlur}
-                      />
-                    )}
-                  />
-                  </Col>
-                  <Col style={{ maxWidth: 'max-content' }}>
-                    <Link href="/forget-password" className="text-primary">
-                      Forget Password
-                    </Link>
-                  </Col>
-                </Row>
-
-
-                <Button variant="primary" size="lg" type="submit">
-                  Submit
-                </Button>
-              </Form>
-            </Card.Body>
-            <Card.Footer className="px-lg-5 py-lg-4">
-              <div className="text-sm text-muted">
-                Don't have an account?{" "}
-                <Link href="/register">
-                  Register
-                </Link>
-                .
-              </div>
-            </Card.Footer>
-          </Card>
+        <Col lg={6} className="px-lg-4 swipeable-form-container" style={{ flex: 'auto', width: '100%' }}>
+          <div className={`form-container ${activeComponent === 'login' ? 'slide-in' : 'slide-out'}`}>
+            <LoginForm onSuccess={() => setActiveComponent('otp')} />
+          </div>
+          <div className={`form-container ${activeComponent === 'otp' ? 'slide-in' : 'slide-out'}`}>
+            <OTP onSuccess={() => setActiveComponent('login')} />
+          </div>
         </Col>
         <Col
           lg={6}
