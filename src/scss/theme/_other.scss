@@ -209,3 +209,37 @@ body *::-webkit-scrollbar-thumb {
 .slide-out {
   transform: translateX(-200%);
 }
+
+// circle-bullet
+.circle-bullet {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #E6E6E6;
+}
+
+.password-bullet {
+  color: #949494;
+  margin-bottom: 0;
+}
+
+.password-bullet-container.success .circle-bullet {
+  background-color: $success;
+}
+
+.password-bullet-container.error .circle-bullet {
+  background-color: $danger;
+}
+
+.password-bullet-container.success .password-bullet {
+  color: $success;
+}
+
+.password-bullet-container.error .password-bullet {
+  color: $danger;
+}
+
+button.btn {
+  font-weight: 500;
+  font-size: 16px;
+}

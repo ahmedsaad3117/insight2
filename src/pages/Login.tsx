@@ -1,8 +1,11 @@
-import { Col, Container, Row } from "react-bootstrap"
-import Image from "../components/CustomImage"
-import LoginForm from "@/components/LoginForm"
-import OTP from "@/components/OTP"
 import { useState } from "react"
+import { Col, Container, Row } from "react-bootstrap"
+import Image from "@/components/CustomImage"
+import LoginCard from "@/components/Login/LoginCard"
+import OTP from "@/components/Login/OTP"
+import ForgotPasswordCard from "@/components/Login/ForgotPasswordCard"
+import ResetPassword from "@/components/Login/ResetPasswordCard"
+import SuccessfulPasswordReset from "@/components/Login/SuccessfulPasswordResetCard"
 
 export async function getStaticProps() {
   return {
@@ -16,18 +19,28 @@ export async function getStaticProps() {
   }
 }
 export default function Login() {
-  const [activeComponent, setActiveComponent] = useState('login');
+  const urlParams = new URLSearchParams(window.location.search);
+
+  const [currentIndex, setCurrentIndex] = useState(
+    urlParams.get('reset_password') ? 3 : 0
+  );
 
   return (
     <Container>
       <Row className="align-items-center">
-        <Col lg={6} className="px-lg-4 swipeable-form-container" style={{ flex: 'auto', width: '100%' }}>
-          <div className={`form-container ${activeComponent === 'login' ? 'slide-in' : 'slide-out'}`}>
-            <LoginForm onSuccess={() => setActiveComponent('otp')} />
-          </div>
-          <div className={`form-container ${activeComponent === 'otp' ? 'slide-in' : 'slide-out'}`}>
-            <OTP onSuccess={() => setActiveComponent('login')} />
-          </div>
+        <Col lg={6} className="px-lg-4">
+          { currentIndex === 0 ?
+            <LoginCard setCurrentIndex={setCurrentIndex} /> :
+            currentIndex === 1 ?
+            <OTP setCurrentIndex={setCurrentIndex} /> :
+            currentIndex === 2 ?
+            <ForgotPasswordCard setCurrentIndex={setCurrentIndex} /> :
+            currentIndex === 3 ?
+            <ResetPassword setCurrentIndex={setCurrentIndex} /> :
+            currentIndex === 4 ?
+            <SuccessfulPasswordReset setCurrentIndex={setCurrentIndex} /> :
+            <></>
+          }
         </Col>
         <Col
           lg={6}
