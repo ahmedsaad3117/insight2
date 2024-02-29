@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react"
 import Link from "next/link"
 import { Button, Card, Col, Form, Row } from "react-bootstrap"
 import * as Yup from 'yup'
@@ -5,10 +6,10 @@ import { Controller, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 
 interface Props {
-  onSuccess: () => void;
+  setCurrentIndex: Dispatch<SetStateAction<number>>;
 }
 
-export default function LoginForm({ onSuccess }: Props) {
+export default function LoginCard({ setCurrentIndex }: Props) {
 
   const schema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Email is required'),
@@ -28,7 +29,7 @@ export default function LoginForm({ onSuccess }: Props) {
 
   const onSubmit = (payload: any) => {
     console.log(payload);
-    onSuccess();
+    setCurrentIndex(1);
   }
   
   return (
@@ -105,7 +106,7 @@ export default function LoginForm({ onSuccess }: Props) {
             </Col>
 
             <Col style={{ maxWidth: 'max-content' }}>
-              <Button variant="link" className="text-primary">
+              <Button variant="link" className="text-primary" onClick={() => setCurrentIndex(2)}>
                 Forget Password
               </Button>
             </Col>

@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react"
 import { useEffect, useRef, useState } from "react"
 import { Button, Card, Form } from "react-bootstrap"
 import * as Yup from 'yup'
@@ -6,10 +7,10 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import OtpInput from 'react-otp-input';
 
 interface Props {
-  onSuccess: () => void;
+  setCurrentIndex: Dispatch<SetStateAction<number>>;
 }
 
-export default function OTP({ onSuccess }: Props) {
+export default function OTP({ setCurrentIndex }: Props) {
   const [countDown, setCountDown] = useState(10);
 
   const intervalRef = useRef<any>();
@@ -28,7 +29,7 @@ export default function OTP({ onSuccess }: Props) {
 
   const onSubmit = (payload: any) => {
     console.log(payload);
-    onSuccess();
+    setCurrentIndex(0);
   }
 
   useEffect(() => {
