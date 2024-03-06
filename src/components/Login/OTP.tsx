@@ -47,7 +47,7 @@ export default function OTP({ setCurrentIndex }: Props) {
   }, [])
   
   return (
-    <Card style={{ width: 591, height: 589 }}>
+    <Card>
       <Card.Header className="px-lg-5 py-4">
         <div className="card-heading text-primary fw-700 fs-15-45">otp</div>
       </Card.Header>
