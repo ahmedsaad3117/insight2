@@ -3,8 +3,10 @@ import { useSession, signIn } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { isUserLoggedIn } from "../utils/authManager";
 import Head from "next/head"
-// import NextNprogress from "nextjs-progressbar"
+import NextNprogress from "nextjs-progressbar"
+import { GridLoader } from "react-spinners";
 import Header from "../components/Header"
+import { Container, Row } from "react-bootstrap";
 // import SvgIcons from "./SvgIcons"
 // import Sidebar from "./Sidebar"
 // import Footer from "./Footer"
@@ -14,6 +16,7 @@ const Layout = (pageProps: any) => {
   
   const [sidebarShrink, setSidebarShrink] = useState(false)
   const [isLoading, setIsLoading] = useState(true);
+  const [checkingSession, setCheckingSession] = useState(true);
   
   useEffect(() => {
     if (isLoading) {
@@ -22,16 +25,24 @@ const Layout = (pageProps: any) => {
     }
 
     if (!isUserLoggedIn(session!)) signIn("keycloak");
+    else setCheckingSession(false);
 
   }, [session]);
 
   return (
     <div className={pageProps.className} style={{ width: '100%' }}>
-      {/* <NextNprogress color="#4E66F8" options={{ showSpinner: false }} /> */}
-      <Header
-        setSidebarShrink={setSidebarShrink}
-        sidebarShrink={sidebarShrink}
-      />
+      { checkingSession ?
+        <Row style={{ alignItems: 'center', height: '100%' }}>
+          <Container style={{ width: 57, boxSizing: 'content-box' }}>
+            <GridLoader color="#3A3985" size={30} />
+            {/* <NextNprogress color="#4E66F8" options={{ showSpinner: true }} /> */}
+          </Container>
+        </Row> :
+        <Header
+          setSidebarShrink={setSidebarShrink}
+          sidebarShrink={sidebarShrink}
+        />
+      }
 
       {/* <div className="d-flex align-items-stretch">
         <Sidebar sidebarShrink={sidebarShrink} />
