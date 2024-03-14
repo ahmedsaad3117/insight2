@@ -2,7 +2,6 @@
 
 import Layout from "@/pages/Layout";
 import { SSRProvider } from "react-bootstrap";
-import Login from "../pages/Login";
 import "../scss/style.default.scss"
 
 export default function Home() {

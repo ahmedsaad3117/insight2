@@ -12,7 +12,7 @@ import { Container, Row } from "react-bootstrap";
 // import Footer from "./Footer"
 
 const Layout = (pageProps: any) => {
-  const { data: session } = useSession();
+  const session = useSession();
   
   const [sidebarShrink, setSidebarShrink] = useState(false)
   const [isLoading, setIsLoading] = useState(true);
@@ -24,10 +24,10 @@ const Layout = (pageProps: any) => {
       return;
     }
 
-    if (!isUserLoggedIn(session!)) signIn("keycloak");
+    if (!isUserLoggedIn(session?.data!)) signIn("keycloak");
     else setCheckingSession(false);
 
-  }, [session]);
+  }, [session?.data]);
 
   return (
     <div className={pageProps.className} style={{ width: '100%' }}>
