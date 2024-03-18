@@ -1,4 +1,6 @@
+import axios, { AxiosError } from "axios";
 import NextAuth, { NextAuthOptions, Profile, Session } from "next-auth";
+import { JWT } from "next-auth/jwt";
 import KeycloakProvider from "next-auth/providers/keycloak";
 import { decodeToken } from "react-jwt";
 declare module "next-auth" {
@@ -17,6 +19,30 @@ declare module "next-auth" {
     roles: any;
   }
 }
+
+async function doFinalSignoutHandshake(jwt: any) {
+  const { provider, id_token } = jwt;
+
+  try {
+    // Add the id_token_hint to the query string
+    const params = new URLSearchParams();
+    params.append("id_token_hint", id_token);
+    const { status, statusText } = await axios.get(
+      `${
+        process.env.KEYCLOAK_URL
+      }/protocol/openid-connect/logout?${params.toString()}`
+    );
+
+    // The response body should contain a confirmation that the user has been logged out
+    console.log("Completed post-logout handshake", status, statusText);
+  } catch (e: any) {
+    console.error(
+      "Unable to perform post-logout handshake",
+      (e as AxiosError)?.code || e
+    );
+  }
+}
+
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 export const authOptions: NextAuthOptions = {
@@ -28,9 +54,8 @@ export const authOptions: NextAuthOptions = {
       issuer: process.env.KEYCLOAK_URL as string,
     }),
   ],
-  secret: process.env.NEXT_PUBLIC_SECRET,
   callbacks: {
-    async jwt({ token, account, profile }) {
+    async jwt({ token, user, account, profile }) {
       try {
         if (account) {
           console.log("--------------ACCESS TOKEN ---------------");
@@ -38,10 +63,12 @@ export const authOptions: NextAuthOptions = {
           if (token == null) {
             throw new Error("Unnable to decode token");
           }
+
           console.log(decodedToken);
           console.log("--------------ROLES---------------");
           // console.log(decodedToken.resource_access)
           // Do something here to add more info, maybe just overwrite profile (thats the one that should have this info)
+          token.id_token = account.id_token;
           profile = decodedToken as Profile;
           token.account = account;
         }
@@ -70,6 +97,9 @@ export const authOptions: NextAuthOptions = {
       session.roles = token.client_roles;
       return session;
     },
+  },
+  events: {
+    signOut: ({ session, token }) => doFinalSignoutHandshake(token),
   },
 };
 export default NextAuth(authOptions);
