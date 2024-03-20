@@ -54,6 +54,7 @@ export const authOptions: NextAuthOptions = {
       issuer: process.env.KEYCLOAK_URL as string,
     }),
   ],
+  secret:process.env.SECRET,
   callbacks: {
     async jwt({ token, user, account, profile }) {
       try {
