@@ -5,11 +5,11 @@ import { Container, Row } from "react-bootstrap";
 function Signin() {
 
   useEffect(() => {
-    console.log(window.location);
     const query = new URLSearchParams(window.location.search);
-    console.log(query.get('error'));
     
-    window.location.href = window.location.origin;
+    if (query.get('error') === 'OAuthCallback') {
+      window.location.href = window.location.origin;
+    }
   }, [])
   
   return (
