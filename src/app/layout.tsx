@@ -3,8 +3,6 @@
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import { Inter } from "next/font/google";
-import { useEffect } from "react";
-import { usePathname } from 'next/navigation';
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,18 +18,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname();
-  
-  useEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-    console.log(`Route changed to: ${pathname} and error = ${query.get('error')}`);
-    if (pathname === '/api/auth/signin' && query.get('error') === 'OAuthCallback') {
-      console.log('Redirecting to home page');
-      
-      window.location.href = process.env.NEXTAUTH_URL as string;
-    }
-  }, [pathname]);
-
   return (
     <html lang="en">
       <body className={inter.className}>

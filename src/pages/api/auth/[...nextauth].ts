@@ -103,6 +103,7 @@ export const authOptions: NextAuthOptions = {
     signOut: ({ session, token }) => doFinalSignoutHandshake(token),
   },
   pages: {
+    signIn: "/signin",
     error: '/auth/error', // Error code passed in query string as ?error=
   }
 };
