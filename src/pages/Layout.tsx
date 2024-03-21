@@ -33,7 +33,6 @@ const Layout = (pageProps: any) => {
   
   useEffect(() => {
     console.log(`Route changed to: ${pathname}`);
-    console.log(queryParam);
     
   }, [pathname]);
 
