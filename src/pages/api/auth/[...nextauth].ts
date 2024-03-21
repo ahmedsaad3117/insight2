@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios";
 import NextAuth, { NextAuthOptions, Profile, Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import KeycloakProvider from "next-auth/providers/keycloak";
+import { redirect } from "next/navigation";
 import { decodeToken } from "react-jwt";
 declare module "next-auth" {
   interface Session {
@@ -97,7 +98,7 @@ export const authOptions: NextAuthOptions = {
       console.log('############### SESSION ###############\n', session);
       console.log(this.redirect);
       
-      this.redirect?.({ url: process.env.NEXTAUTH_URL as string, baseUrl: process.env.NEXTAUTH_URL as string })
+      redirect(process.env.NEXTAUTH_URL as string)
       
       session.account = token.account;
       session.profile = token.profile;

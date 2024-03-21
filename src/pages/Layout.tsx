@@ -10,9 +10,11 @@ import { Container, Row } from "react-bootstrap";
 // import SvgIcons from "./SvgIcons"
 // import Sidebar from "./Sidebar"
 // import Footer from "./Footer"
+import { useRouter } from 'next/router';
 
 const Layout = (pageProps: any) => {
   const session = useSession();
+  const router = useRouter();
   
   const [sidebarShrink, setSidebarShrink] = useState(false)
   const [isLoading, setIsLoading] = useState(true);
@@ -28,6 +30,19 @@ const Layout = (pageProps: any) => {
     else setCheckingSession(false);
 
   }, [session?.data]);
+
+  useEffect(() => {
+    const handleRouteChange = (url: any) => {
+      console.log('Route changed!', url);
+      // Do something when route changes
+    };
+
+    router.events.on('routeChangeStart', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, []);
 
   return (
     <div className={pageProps.className} style={{ width: '100%' }}>
