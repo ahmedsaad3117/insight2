@@ -10,12 +10,10 @@ import { Container, Row } from "react-bootstrap";
 // import SvgIcons from "./SvgIcons"
 // import Sidebar from "./Sidebar"
 // import Footer from "./Footer"
-import { usePathname } from 'next/navigation';
 
 const Layout = (pageProps: any) => {
   const session = useSession();
-  const pathname = usePathname();
-
+  
   const [sidebarShrink, setSidebarShrink] = useState(false)
   const [isLoading, setIsLoading] = useState(true);
   const [checkingSession, setCheckingSession] = useState(true);
@@ -30,11 +28,6 @@ const Layout = (pageProps: any) => {
     else setCheckingSession(false);
 
   }, [session?.data]);
-  
-  useEffect(() => {
-    console.log(`Route changed to: ${pathname}`);
-    
-  }, [pathname]);
 
   return (
     <div className={pageProps.className} style={{ width: '100%' }}>
