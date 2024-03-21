@@ -8,13 +8,13 @@ function Signin() {
     const query = new URLSearchParams(window.location.search);
     
     if (query.get('error') === 'OAuthCallback') {
-      // window.location.href = window.location.origin;
+      window.location.href = window.location.origin;
     }
   }, [])
   
   return (
     <Row style={{ alignItems: 'center', height: '100%' }}>
-      <Container style={{ width: 57, boxSizing: 'content-box' }}>
+      <Container style={{ width: 57, boxSizing: 'content-box', transform: 'translate(50%, -50%)', position: 'absolute', top: '50%', right: '50%' }}>
         <GridLoader color="#3A3985" size={30} />
       </Container>
     </Row>
