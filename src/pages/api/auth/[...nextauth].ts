@@ -92,7 +92,7 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token, trigger }) {
       // Token interceptor to add token info to the session to use on the pages.
-      console.log("async session accessed");
+      console.log("async session accessed", new Date());
       console.log('############### TOKEN ###############\n', token);
       console.log('############### SESSION ###############\n', session);
       
@@ -104,6 +104,9 @@ export const authOptions: NextAuthOptions = {
   },
   events: {
     signOut: ({ session, token }) => doFinalSignoutHandshake(token),
+  },
+  pages: {
+    error: '/error',
   },
 };
 export default NextAuth(authOptions);
