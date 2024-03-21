@@ -104,7 +104,6 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: "/signin",
-    error: '/auth/error', // Error code passed in query string as ?error=
   }
 };
 export default NextAuth(authOptions);

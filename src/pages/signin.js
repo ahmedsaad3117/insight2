@@ -5,7 +5,7 @@ function Signin() {
   useEffect(() => {
     console.log(window.location);
 
-    window.location.href = process.env.NEXTAUTH_URL;
+    window.location.href = window.location.origin;
   }, [])
   
   
