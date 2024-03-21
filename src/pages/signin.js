@@ -1,7 +1,14 @@
-// import { providers, signIn, getSession, csrfToken } from "next-auth/client";
-import React from "react";
+import React, { useEffect } from "react";
 
-function signin({ providers }) {
+function signin() {
+
+  useEffect(() => {
+    console.log(window.location);
+
+    window.location.href = process.env.NEXTAUTH_URL;
+  }, [])
+  
+  
   return (
     <div>
       <h1>Custom SignIn Page</h1>
@@ -10,21 +17,3 @@ function signin({ providers }) {
 }
 
 export default signin;
-
-// export async function getServerSideProps(context) {
-//   const { req } = context;
-//   const session = await getSession({ req });
-
-//   if (session) {
-//     return {
-//       redirect: { destination: "/" },
-//     };
-//   }
-
-//   return {
-//     props: {
-//       providers: await providers(context),
-//       csrfToken: await csrfToken(context),
-//     },
-//   };
-// }
