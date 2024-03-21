@@ -56,11 +56,6 @@ export const authOptions: NextAuthOptions = {
   ],
   secret:process.env.SECRET,
   callbacks: {
-    signIn: async (data) => {
-      console.log('--------------SIGN IN ---------------');
-      console.log(data);
-      return true; 
-    },
     async jwt({ token, user, account, profile }) {
       try {
         if (account) {
@@ -98,6 +93,9 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token, trigger }) {
       // Token interceptor to add token info to the session to use on the pages.
       console.log("async session accessed");
+      console.log('############### TOKEN ###############\n', token);
+      console.log('############### SESSION ###############\n', session);
+      
       session.account = token.account;
       session.profile = token.profile;
       session.roles = token.client_roles;
