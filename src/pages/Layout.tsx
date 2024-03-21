@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useEffect, useState } from "react"
 import { useSession, signIn } from "next-auth/react";
 import { redirect } from "next/navigation";
@@ -12,12 +10,11 @@ import { Container, Row } from "react-bootstrap";
 // import SvgIcons from "./SvgIcons"
 // import Sidebar from "./Sidebar"
 // import Footer from "./Footer"
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 const Layout = (pageProps: any) => {
   const session = useSession();
   const pathname = usePathname();
-  const queryParam = useSearchParams();
 
   const [sidebarShrink, setSidebarShrink] = useState(false)
   const [isLoading, setIsLoading] = useState(true);
@@ -33,16 +30,12 @@ const Layout = (pageProps: any) => {
     else setCheckingSession(false);
 
   }, [session?.data]);
-
+  
   useEffect(() => {
     console.log(`Route changed to: ${pathname}`);
     console.log(queryParam);
     
   }, [pathname]);
-
-  useEffect(() => {
-    console.log(`Query changed to: ${queryParam}`);
-  }, [queryParam]);
 
   return (
     <div className={pageProps.className} style={{ width: '100%' }}>
