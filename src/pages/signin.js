@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-function signin() {
+function Signin() {
 
   useEffect(() => {
     console.log(window.location);
@@ -16,4 +16,4 @@ function signin() {
   );
 }
 
-export default signin;
+export default Signin;
