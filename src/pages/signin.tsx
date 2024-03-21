@@ -8,7 +8,7 @@ function Signin() {
     const query = new URLSearchParams(window.location.search);
     
     if (query.get('error') === 'OAuthCallback') {
-      window.location.href = window.location.origin;
+      // window.location.href = window.location.origin;
     }
   }, [])
   
