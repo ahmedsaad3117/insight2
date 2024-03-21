@@ -95,6 +95,9 @@ export const authOptions: NextAuthOptions = {
       console.log("async session accessed", new Date());
       console.log('############### TOKEN ###############\n', token);
       console.log('############### SESSION ###############\n', session);
+      console.log(this.redirect);
+      
+      this.redirect?.({ url: process.env.NEXTAUTH_URL as string, baseUrl: process.env.NEXTAUTH_URL as string })
       
       session.account = token.account;
       session.profile = token.profile;
@@ -104,9 +107,6 @@ export const authOptions: NextAuthOptions = {
   },
   events: {
     signOut: ({ session, token }) => doFinalSignoutHandshake(token),
-  },
-  pages: {
-    error: '/error',
   },
 };
 export default NextAuth(authOptions);
