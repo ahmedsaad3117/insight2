@@ -10,12 +10,13 @@ import { Container, Row } from "react-bootstrap";
 // import SvgIcons from "./SvgIcons"
 // import Sidebar from "./Sidebar"
 // import Footer from "./Footer"
-import { useRouter } from 'next/router';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 const Layout = (pageProps: any) => {
   const session = useSession();
-  const router = useRouter();
-  
+  const pathname = usePathname();
+  const queryParam = useSearchParams();
+
   const [sidebarShrink, setSidebarShrink] = useState(false)
   const [isLoading, setIsLoading] = useState(true);
   const [checkingSession, setCheckingSession] = useState(true);
@@ -32,17 +33,14 @@ const Layout = (pageProps: any) => {
   }, [session?.data]);
 
   useEffect(() => {
-    const handleRouteChange = (url: any) => {
-      console.log('Route changed!', url);
-      // Do something when route changes
-    };
+    console.log(`Route changed to: ${pathname}`);
+    console.log(queryParam);
+    
+  }, [pathname]);
 
-    router.events.on('routeChangeStart', handleRouteChange);
-
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChange);
-    };
-  }, []);
+  useEffect(() => {
+    console.log(`Query changed to: ${queryParam}`);
+  }, [queryParam]);
 
   return (
     <div className={pageProps.className} style={{ width: '100%' }}>
