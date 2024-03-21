@@ -56,6 +56,11 @@ export const authOptions: NextAuthOptions = {
   ],
   secret:process.env.SECRET,
   callbacks: {
+    signIn: async (data) => {
+      console.log('--------------SIGN IN ---------------');
+      console.log(data);
+      return true; 
+    },
     async jwt({ token, user, account, profile }) {
       try {
         if (account) {
