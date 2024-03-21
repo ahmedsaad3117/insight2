@@ -2,7 +2,6 @@ import axios, { AxiosError } from "axios";
 import NextAuth, { NextAuthOptions, Profile, Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import KeycloakProvider from "next-auth/providers/keycloak";
-import { redirect } from "next/navigation";
 import { decodeToken } from "react-jwt";
 declare module "next-auth" {
   interface Session {
@@ -93,13 +92,7 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token, trigger }) {
       // Token interceptor to add token info to the session to use on the pages.
-      console.log("async session accessed", new Date());
-      console.log('############### TOKEN ###############\n', token);
-      console.log('############### SESSION ###############\n', session);
-      console.log(this.redirect);
-      
-      redirect(process.env.NEXTAUTH_URL as string)
-      
+      console.log("async session accessed");
       session.account = token.account;
       session.profile = token.profile;
       session.roles = token.client_roles;
