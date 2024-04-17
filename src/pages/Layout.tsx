@@ -26,6 +26,7 @@ const Layout = (pageProps: any) => {
   const [sidebarShrink, setSidebarShrink] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [checkingSession, setCheckingSession] = useState(true);
+  const [loadingIframe, setLoadingIframe] = useState(false);
 
   useEffect(() => {
     if (isLoading) {
@@ -36,6 +37,14 @@ const Layout = (pageProps: any) => {
     if (!isUserLoggedIn(session?.data!)) signIn("keycloak");
     else setCheckingSession(false);
   }, [session?.data]);
+
+  function handleClick(newUrl: string) {
+    setCustomLink(newUrl);
+    setLoadingIframe(true);
+    setTimeout(() => {
+      setLoadingIframe(false);
+    }, 2500);
+  }
 
   return (
     <div
@@ -64,7 +73,7 @@ const Layout = (pageProps: any) => {
                   <Nav.Link
                     style={{ fontSize: "18px" }} // Inline style for font size
                     onClick={() =>
-                      setCustomLink(
+                      handleClick(
                         "https://app.powerbi.com/view?r=eyJrIjoiYjE4NjIwZTgtMTRhMy00OGZiLTk1MWItOTI0MDQxYTk2ZjMwIiwidCI6ImZiMTY2OWYwLTZlYzItNDg0NC1hMzZhLTJlZjRhZTQ2Y2IzNiIsImMiOjl9&pageName=ReportSectionf30ed19ae11842d9cdca"
                       )
                     }
@@ -74,7 +83,7 @@ const Layout = (pageProps: any) => {
                   <Nav.Link
                     style={{ fontSize: "18px" }} // Inline style for font size
                     onClick={() =>
-                      setCustomLink(
+                      handleClick(
                         "https://app.powerbi.com/view?r=eyJrIjoiMTliMjE1OWMtMzI3ZC00MzY2LTg0NjMtZWI5NmIxZGEzODRjIiwidCI6ImZiMTY2OWYwLTZlYzItNDg0NC1hMzZhLTJlZjRhZTQ2Y2IzNiIsImMiOjl9"
                       )
                     }
@@ -84,7 +93,7 @@ const Layout = (pageProps: any) => {
                   <Nav.Link
                     style={{ fontSize: "18px" }} // Inline style for font size
                     onClick={() =>
-                      setCustomLink(
+                      handleClick(
                         "https://app.powerbi.com/view?r=eyJrIjoiZmI5ODI3YjktN2MzMS00Y2I3LWIwZjAtNTM2OTY3MWY4ODM4IiwidCI6ImZiMTY2OWYwLTZlYzItNDg0NC1hMzZhLTJlZjRhZTQ2Y2IzNiIsImMiOjl9"
                       )
                     }
@@ -129,7 +138,7 @@ const Layout = (pageProps: any) => {
           style={{ width: "100%", height: "calc(100vh - 64px)" }} // Adjust height as needed, subtracting any header height
         ></iframe> */}
 
-        <Iframe link={customLink} />
+        {!loadingIframe && <Iframe link={customLink} />}
 
         {/* <PowerBIEmbed
         embedConfig={{
