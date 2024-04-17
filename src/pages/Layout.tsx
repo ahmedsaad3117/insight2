@@ -7,8 +7,10 @@ import NextNprogress from "nextjs-progressbar";
 import { GridLoader } from "react-spinners";
 import Header from "../components/Header";
 import { Container, Row } from "react-bootstrap";
-
-
+import NavBar from "@/components/NavBar/NavBar";
+import Iframe from "@/components/Iframe/IFrame";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
 
 // import SvgIcons from "./SvgIcons"
 // import Sidebar from "./Sidebar"
@@ -16,6 +18,10 @@ import { Container, Row } from "react-bootstrap";
 
 const Layout = (pageProps: any) => {
   const session = useSession();
+
+  const [customLink, setCustomLink] = useState(
+    "https://app.powerbi.com/view?r=eyJrIjoiMTliMjE1OWMtMzI3ZC00MzY2LTg0NjMtZWI5NmIxZGEzODRjIiwidCI6ImZiMTY2OWYwLTZlYzItNDg0NC1hMzZhLTJlZjRhZTQ2Y2IzNiIsImMiOjl9"
+  );
 
   const [sidebarShrink, setSidebarShrink] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -45,10 +51,51 @@ const Layout = (pageProps: any) => {
           </Container>
         </Row>
       ) : (
-        <Header
-          setSidebarShrink={setSidebarShrink}
-          sidebarShrink={sidebarShrink}
-        />
+        <>
+          {" "}
+          <Header
+            setSidebarShrink={setSidebarShrink}
+            sidebarShrink={sidebarShrink}
+          />
+          <Navbar expand="lg" className="me-auto ">
+            <Container className="me-auto">
+              <Navbar.Collapse id="basic-navbar-nav" className="me-auto ">
+                <Nav className="m-auto ">
+                  <Nav.Link
+                    style={{ fontSize: "18px" }} // Inline style for font size
+                    onClick={() =>
+                      setCustomLink(
+                        "https://app.powerbi.com/view?r=eyJrIjoiYjE4NjIwZTgtMTRhMy00OGZiLTk1MWItOTI0MDQxYTk2ZjMwIiwidCI6ImZiMTY2OWYwLTZlYzItNDg0NC1hMzZhLTJlZjRhZTQ2Y2IzNiIsImMiOjl9&pageName=ReportSectionf30ed19ae11842d9cdca"
+                      )
+                    }
+                  >
+                    C4 Sales
+                  </Nav.Link>
+                  <Nav.Link
+                    style={{ fontSize: "18px" }} // Inline style for font size
+                    onClick={() =>
+                      setCustomLink(
+                        "https://app.powerbi.com/view?r=eyJrIjoiMTliMjE1OWMtMzI3ZC00MzY2LTg0NjMtZWI5NmIxZGEzODRjIiwidCI6ImZiMTY2OWYwLTZlYzItNDg0NC1hMzZhLTJlZjRhZTQ2Y2IzNiIsImMiOjl9"
+                      )
+                    }
+                  >
+                    Prodcuts
+                  </Nav.Link>
+                  <Nav.Link
+                    style={{ fontSize: "18px" }} // Inline style for font size
+                    onClick={() =>
+                      setCustomLink(
+                        "https://app.powerbi.com/view?r=eyJrIjoiZmI5ODI3YjktN2MzMS00Y2I3LWIwZjAtNTM2OTY3MWY4ODM4IiwidCI6ImZiMTY2OWYwLTZlYzItNDg0NC1hMzZhLTJlZjRhZTQ2Y2IzNiIsImMiOjl9"
+                      )
+                    }
+                  >
+                    Cost Analysis
+                  </Nav.Link>
+                </Nav>
+              </Navbar.Collapse>
+            </Container>
+          </Navbar>
+        </>
       )}
 
       <div
@@ -75,12 +122,14 @@ const Layout = (pageProps: any) => {
         }
       /> */}
 
-        <iframe
+        {/* <iframe
           title="Sample Report Demo"
           src="https://playground.powerbi.com/sampleReportEmbed"
           allowFullScreen={true}
           style={{ width: "100%", height: "calc(100vh - 64px)" }} // Adjust height as needed, subtracting any header height
-        ></iframe>
+        ></iframe> */}
+
+        <Iframe link={customLink} />
 
         {/* <PowerBIEmbed
         embedConfig={{
