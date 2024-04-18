@@ -78,7 +78,7 @@ const Layout = (pageProps: any) => {
                       )
                     }
                   >
-                    C4 Sales
+                    L&apos;Oréal Sales
                   </Nav.Link>
                   <Nav.Link
                     style={{ fontSize: "18px" }} // Inline style for font size
