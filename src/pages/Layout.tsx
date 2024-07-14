@@ -52,7 +52,7 @@ const Layout = (pageProps: any) => {
         width: "100%",
       }}
     >
-      {!checkingSession ? (
+      {checkingSession ? (
         <Row style={{ alignItems: "center", height: "100%" }}>
           <Container style={{ width: 57, boxSizing: "content-box" }}>
             <GridLoader color="#3A3985" size={30} />
