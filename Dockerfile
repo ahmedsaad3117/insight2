@@ -26,6 +26,6 @@ COPY --from=BUILD_IMAGE /app/.next ./.next
 COPY --from=BUILD_IMAGE /app/public ./public
 COPY --from=BUILD_IMAGE /app/.env ./.env
 
-EXPOSE 3000
+EXPOSE 3001
 
 CMD ["npm", "run", "start"]
