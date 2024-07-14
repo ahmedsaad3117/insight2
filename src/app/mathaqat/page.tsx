@@ -1,8 +1,8 @@
 "use client";
 
 import { SSRProvider } from "react-bootstrap";
-import "../scss/style.default.scss";
-import Layout from "@/pages/mathaqat/Layout";
+import "../../scss/style.default.scss";
+import Layout from "@/pages/Layout";
 
 export default function Home() {
   return (

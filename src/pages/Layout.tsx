@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSession, signIn } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { isUserLoggedIn } from "../../utils/authManager";
+import { isUserLoggedIn } from "../utils/authManager";
 import Head from "next/head";
 import NextNprogress from "nextjs-progressbar";
 import { GridLoader } from "react-spinners";
-import Header from "../../components/Header";
+import Header from "../components/Header";
 import { Container, Row } from "react-bootstrap";
 import NavBar from "@/components/NavBar/NavBar";
 import Iframe from "@/components/Iframe/IFrame";
@@ -20,7 +20,7 @@ const Layout = (pageProps: any) => {
   const session = useSession();
 
   const [customLink, setCustomLink] = useState(
-    "https://app.powerbi.com/view?r=eyJrIjoiMDljYzNhZDUtOGMwZC00N2RjLWExNDAtMDc2Y2UwYTk4MThiIiwidCI6ImZiMTY2OWYwLTZlYzItNDg0NC1hMzZhLTJlZjRhZTQ2Y2IzNiIsImMiOjl9"
+    "https://app.powerbi.com/view?r=eyJrIjoiMTY1NjY0ZmItYWYyYy00ZDQ5LTliYjgtY2Y2NWQyYjA0MzdjIiwidCI6ImZiMTY2OWYwLTZlYzItNDg0NC1hMzZhLTJlZjRhZTQ2Y2IzNiIsImMiOjl9"
   );
 
   const [sidebarShrink, setSidebarShrink] = useState(false);
@@ -52,7 +52,7 @@ const Layout = (pageProps: any) => {
         width: "100%",
       }}
     >
-      {checkingSession ? (
+      {!checkingSession ? (
         <Row style={{ alignItems: "center", height: "100%" }}>
           <Container style={{ width: 57, boxSizing: "content-box" }}>
             <GridLoader color="#3A3985" size={30} />
@@ -74,31 +74,11 @@ const Layout = (pageProps: any) => {
                     style={{ fontSize: "18px" }} // Inline style for font size
                     onClick={() =>
                       handleClick(
-                        "https://app.powerbi.com/view?r=eyJrIjoiMDljYzNhZDUtOGMwZC00N2RjLWExNDAtMDc2Y2UwYTk4MThiIiwidCI6ImZiMTY2OWYwLTZlYzItNDg0NC1hMzZhLTJlZjRhZTQ2Y2IzNiIsImMiOjl9"
+                        "https://app.powerbi.com/view?r=eyJrIjoiMTY1NjY0ZmItYWYyYy00ZDQ5LTliYjgtY2Y2NWQyYjA0MzdjIiwidCI6ImZiMTY2OWYwLTZlYzItNDg0NC1hMzZhLTJlZjRhZTQ2Y2IzNiIsImMiOjl9"
                       )
                     }
                   >
-                    Insight
-                  </Nav.Link>
-                  <Nav.Link
-                    style={{ fontSize: "18px" }} // Inline style for font size
-                    onClick={() =>
-                      handleClick(
-                        "https://app.powerbi.com/view?r=eyJrIjoiMTliMjE1OWMtMzI3ZC00MzY2LTg0NjMtZWI5NmIxZGEzODRjIiwidCI6ImZiMTY2OWYwLTZlYzItNDg0NC1hMzZhLTJlZjRhZTQ2Y2IzNiIsImMiOjl9"
-                      )
-                    }
-                  >
-                    Prodcuts
-                  </Nav.Link>
-                  <Nav.Link
-                    style={{ fontSize: "18px" }} // Inline style for font size
-                    onClick={() =>
-                      handleClick(
-                        "https://app.powerbi.com/view?r=eyJrIjoiZmI5ODI3YjktN2MzMS00Y2I3LWIwZjAtNTM2OTY3MWY4ODM4IiwidCI6ImZiMTY2OWYwLTZlYzItNDg0NC1hMzZhLTJlZjRhZTQ2Y2IzNiIsImMiOjl9"
-                      )
-                    }
-                  >
-                    Cost Analysis
+                    Menu Engineering Analysis
                   </Nav.Link>
                 </Nav>
               </Navbar.Collapse>
