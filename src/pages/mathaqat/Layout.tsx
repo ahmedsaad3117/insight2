@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSession, signIn } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { isUserLoggedIn } from "../utils/authManager";
+import { isUserLoggedIn } from "../../utils/authManager";
 import Head from "next/head";
 import NextNprogress from "nextjs-progressbar";
 import { GridLoader } from "react-spinners";
-import Header from "../components/Header";
+import Header from "../../components/Header";
 import { Container, Row } from "react-bootstrap";
 import NavBar from "@/components/NavBar/NavBar";
 import Iframe from "@/components/Iframe/IFrame";
