@@ -1,6 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  basePath: "/mathaqat",
-};
+const nextConfig = {};
 
 export default nextConfig;

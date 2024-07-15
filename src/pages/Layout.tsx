@@ -61,7 +61,6 @@ const Layout = (pageProps: any) => {
         </Row>
       ) : (
         <>
-          {" "}
           <Header
             setSidebarShrink={setSidebarShrink}
             sidebarShrink={sidebarShrink}
@@ -70,6 +69,16 @@ const Layout = (pageProps: any) => {
             <Container className="me-auto">
               <Navbar.Collapse id="basic-navbar-nav" className="me-auto ">
                 <Nav className="m-auto ">
+                  <Nav.Link
+                    style={{ fontSize: "18px" }} // Inline style for font size
+                    onClick={() =>
+                      handleClick(
+                        "https://app.powerbi.com/view?r=eyJrIjoiMTY1NjY0ZmItYWYyYy00ZDQ5LTliYjgtY2Y2NWQyYjA0MzdjIiwidCI6ImZiMTY2OWYwLTZlYzItNDg0NC1hMzZhLTJlZjRhZTQ2Y2IzNiIsImMiOjl9"
+                      )
+                    }
+                  >
+                    Menu Engineering Analysis
+                  </Nav.Link>
                   <Nav.Link
                     style={{ fontSize: "18px" }} // Inline style for font size
                     onClick={() =>
