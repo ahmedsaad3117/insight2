@@ -79,16 +79,6 @@ const Layout = (pageProps: any) => {
                   >
                     Menu Engineering Analysis
                   </Nav.Link>
-                  <Nav.Link
-                    style={{ fontSize: "18px" }} // Inline style for font size
-                    onClick={() =>
-                      handleClick(
-                        "https://app.powerbi.com/view?r=eyJrIjoiMTY1NjY0ZmItYWYyYy00ZDQ5LTliYjgtY2Y2NWQyYjA0MzdjIiwidCI6ImZiMTY2OWYwLTZlYzItNDg0NC1hMzZhLTJlZjRhZTQ2Y2IzNiIsImMiOjl9"
-                      )
-                    }
-                  >
-                    Menu Engineering Analysis
-                  </Nav.Link>
                 </Nav>
               </Navbar.Collapse>
             </Container>
